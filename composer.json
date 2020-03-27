@@ -1,0 +1,12 @@
+{
+    "name": "phonebocx/fpbxcovid19",
+    "description": "Script to automatically update Extension and DID forwarding",
+    "autoload": {
+        "psr-4": {
+            "xrobau\\": "lib/xrobau/"
+        }
+    },
+    "require": {
+        "google/apiclient": "^2.4"
+    }
+}
