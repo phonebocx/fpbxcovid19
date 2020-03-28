@@ -1,15 +1,39 @@
 <?php
 
 include 'vendor/autoload.php';
+use xrobau\Google;
 
-use NRG\Google;
+if (!file_exists(__DIR__ . "/data/sheetid.json")) {
+	throw new \Exception("I don't have a sheetid");
+}
+$tmp = json_decode(file_get_contents(__DIR__ . "/data/sheetid.json"), true);
+$sheetid = $tmp['sheetid'];
+
+/* $pubid = "1PANUnrrUTvoQY3ju7mZFcf5Aqn1fhjtK0OikROVchvs";
+$pubid = "2PACX-1vTcJ217cMwTn9XQGfmG0NWRUiJdJyB89PCT6qrbs-nWQd54ygCz86PuSm6tGvlEishmxLouZpRG1bqv";
+$g = new Google($pubid);
+var_dump($g->getSheets());
+exit;
+ */
 
 $g = new Google();
+
+$title = "Test Sheet";
+
+$service = new \Google_Service_Sheets($g->getClient());
+$spreadsheet = new \Google_Service_Sheets_Spreadsheet([
+	    'properties' => [ 'title' => $title ] ]);
+
+$spreadsheet = $service->spreadsheets->create($spreadsheet, [ 'fields' => 'spreadsheetId' ]);
+printf("Spreadsheet ID: %s\n", $spreadsheet->spreadsheetId);
+
+exit;
+
 
 $opts = getopt("d", ["debug"]);
 $cols = ["name", "exten", "mobile", "ringboth", "delay", "start", "end", "enabled", "current", "lastupdate"];
 
-$sheet = $g->getSheet('Phones');
+$sheet = $g->getSheet('Extensions');
 
 $data = $g->getVal($sheet, 'A:G');
 

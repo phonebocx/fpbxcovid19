@@ -16,9 +16,6 @@ class Google
 
     public function __construct($sheetid = false)
     {
-        if (!$sheetid) {
-            $sheetid = "1PANUnrrUTvoQY3ju7mZFcf5Aqn1fhjtK0OikROVchvs";
-        }
         $this->sheetid = $sheetid;
     }
 
@@ -26,7 +23,7 @@ class Google
     {
         $client = new \Google_Client();
         $client->setApplicationName('FreePBX COVID19 Helper');
-        $client->setScopes(\Google_Service_Sheets::DRIVE);
+        $client->setScopes([ \Google_Service_Sheets::DRIVE_FILE ]);
         $client->setAuthConfig(__DIR__ . '/../../data/credentials.json');
         $client->setAccessType('offline');
         $client->setPrompt('select_account consent');

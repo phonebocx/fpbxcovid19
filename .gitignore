@@ -1,3 +1,4 @@
 composer.lock
 vendor
-data/*json
+data/token.json
+data/sheetid.json
